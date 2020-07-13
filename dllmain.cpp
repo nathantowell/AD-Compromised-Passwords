@@ -57,12 +57,6 @@ LONG GetAPILocation(std::wstring& strValue)
     return nError;
 }
 
-/* Generate SHA1 Hash from Input String */
-CHAR GenerateSHA1()
-{
-    // TODO
-}
-
 extern "C" __declspec(dllexport) BOOLEAN __stdcall PasswordFilter(PUNICODE_STRING AccountName, PUNICODE_STRING FullName, PUNICODE_STRING Password, BOOLEAN SetOperation)
 {
     /* Declare Result as TRUE by Default */
