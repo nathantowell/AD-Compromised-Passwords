@@ -7,7 +7,8 @@
 #include <SubAuth.h>
 #include <string>
 
-#include <openssl/sha.h>
+/* Custom */
+#include "sha1.cpp"
 
 #pragma comment(lib, "Ws2_32.lib")
 #pragma comment(lib, "Advapi32.lib")
@@ -68,10 +69,18 @@ extern "C" __declspec(dllexport) BOOLEAN __stdcall PasswordFilter(PUNICODE_STRIN
     BOOLEAN Result = TRUE;
 
     /* Get API URI */
-    std::wstring strAPILocation;
-    GetAPILocation(strAPILocation);
+    std::wstring APILocation;
+    GetAPILocation(APILocation);
 
     /* Generate Hash and K Anonymity */
+    SHA1 Checksum;
+    Checksum.update(Password);
+
+    std::wstring Hash = Checksum.final();
+    std::wstring Range = Hash.substr(0, 5);
+
+    /* Lookup Range in API */
+    //TODO
 
 
     /* Clear Password from Memory */
