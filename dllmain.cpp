@@ -6,8 +6,9 @@
 #include <stdio.h>
 #include <SubAuth.h>
 #include <string>
+#include <curl/curl.h>
 
-/* Custom */
+/* Custom Classes */
 #include "sha1.cpp"
 
 #pragma comment(lib, "Ws2_32.lib")
@@ -36,7 +37,7 @@ BOOL APIENTRY DllMain(
 LONG GetAPILocation(std::wstring& strValue)
 {
     HKEY hKey;
-    LONG lRes = RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE\\AD-CompromisedPasswords", 0, KEY_READ, &hKey);
+    LONG lRes = RegOpenKeyExW(HKEY_LOCAL_MACHINE, L"SOFTWARE\\AD-Compromised-Passwords", 0, KEY_READ, &hKey);
 
     if (ERROR_SUCCESS != lRes)
     {
@@ -47,7 +48,7 @@ LONG GetAPILocation(std::wstring& strValue)
     DWORD dwBufferSize = sizeof(szBuffer);
     ULONG nError;
 
-    nError = RegQueryValueExW(hKey, L"URI", 0, NULL, (LPBYTE)szBuffer, &dwBufferSize);
+    nError = RegQueryValueExW(hKey, L"Endpoint", 0, NULL, (LPBYTE)szBuffer, &dwBufferSize);
 
     if (ERROR_SUCCESS == nError)
     {
